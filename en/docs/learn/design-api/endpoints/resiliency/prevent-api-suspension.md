@@ -35,37 +35,5 @@ Follow the instructions below to prevent or turn off API suspension:
 
 5.  Click **Save** and re-publish the API.
 
-     For more details on creating and publishing an API, see [Create an API]({{base_path}}/learn/design-api/create-api/create-a-rest-api) and [Publish an API]({{base_path}}/learn/design-api/publish-api/publish-an-api).
-
-!!! info
-    To avoid backend endpoint suspension:
-
-    1. Navigate to the `<API-M_HOME>/repository/deployment/server/synapse-configs/default/api` directory. 
-    
-    2. Open the configuration file of the API that has to be prevented from being suspended. 
-    
-        (e.g., `admin--testApi_v1.0.0.xml`) 
-    
-    3. Add the following configurations.
-
-        ``` java
-        <endpoint name="admin--testApi_APIproductionEndpoint_0">
-        <address uri="http://localhost:9000/services/SimpleStockQuoteService">
-            <timeout>
-                <duration>30000</duration>
-                <responseAction>fault</responseAction>
-            </timeout>
-            <suspendOnFailure>
-                <errorCodes>-1</errorCodes>
-                <initialDuration>0</initialDuration>
-                <progressionFactor>1.0</progressionFactor>
-                <maximumDuration>0</maximumDuration>
-            </suspendOnFailure>
-            <markForSuspension>
-                <errorCodes>-1</errorCodes>
-            </markForSuspension>
-        </address>
-        </endpoint>
-        ```
 
 For more details on configuring different timeouts, see [Timeout configurations for an API call]({{base_path}}/install-and-setup/perfromance-tuning-and-test-results/tuning-performance) in the Performance Tuning guide.
